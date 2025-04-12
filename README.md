@@ -16,3 +16,78 @@ InstaApp is a backend tool that automates the process of tracking Instagram foll
 
 ## 📁 Project Structure
 
+```
+InstaApp/
+├── .env                  # Secrets (Instagram credentials, DB URI)
+├── .gitignore
+├── venv/                 # Virtual environment
+├── script.py             # Main scraping script
+├── requirements.txt      # Python dependencies
+├── README.md             # You are here :)
+```
+
+---
+
+## 🔧 Installation
+
+### 1. Clone the Repo
+```bash
+git clone https://github.com/yourusername/InstaApp.git
+cd InstaApp
+```
+
+### 2. Create a Virtual Environment
+```bash
+python -m venv venv
+source venv/bin/activate   # or venv\Scripts\activate on Windows
+```
+
+### 3. Install Dependencies
+```bash
+pip install -r requirements.txt
+```
+
+### 4. Create a `.env` File
+
+```
+INSTA_USERNAME=your_instagram_username
+INSTA_PASSWORD=your_instagram_password
+```
+
+> ⚠️ Do NOT commit this file to GitHub — it's in `.gitignore`.
+
+---
+
+## ▶️ Usage
+
+Make sure your virtual environment is activated, then run:
+
+```bash
+python script.py
+```
+
+Your script will:
+- Log in to your Instagram account
+- Scroll through all followers and following
+- Print or process the data accordingly
+
+---
+
+## 📌 To-Do
+
+- [ ] Store results in SQLite or PostgreSQL
+- [ ] Build REST API using Flask
+- [ ] Add web dashboard to view follower stats
+- [ ] Schedule automatic scraping (e.g., using `cron` or `APScheduler`)
+
+---
+
+## 🧠 Tech Stack
+
+- Python 3.x
+- Selenium
+- Flask (WIP)
+- SQLAlchemy (WIP)
+- python-dotenv
+
+

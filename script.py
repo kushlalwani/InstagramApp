@@ -9,7 +9,7 @@ from selenium.webdriver.chrome.options import Options
 
 # Configure Chrome
 options = Options()
-#options.add_argument("--headless=new")  # Use new headless mode for better stability
+options.add_argument("--headless=new")  # Use new headless mode for better stability
 options.add_argument("--disable-gpu")
 options.add_argument("--window-size=1920,1080")
 options.add_argument("--no-sandbox")
@@ -58,25 +58,37 @@ def login_to_instagram(username, password):
 
 def scrape_usernames():
     users = set()
-    scroll_div_xpath = "//div[@role='dialog']//div[contains(@class, '_aano')]"
+
+    # Scrollable container using your confirmed structure
+    scroll_xpath = "/html/body/div[4]/div[2]/div/div/div[1]/div/div[2]/div/div/div/div/div[2]/div/div/div[3]"
+
     scrollable_div = WebDriverWait(driver, 10).until(
-        EC.presence_of_element_located((By.XPATH, scroll_div_xpath))
+        EC.presence_of_element_located((By.XPATH, scroll_xpath))
     )
 
     last_height = driver.execute_script("return arguments[0].scrollHeight", scrollable_div)
 
     while True:
-        user_elements = driver.find_elements(By.XPATH, "//a[contains(@href, '/')]//span")
+        # Find all <a> tags within the scrollable container
+        links = scrollable_div.find_elements(By.XPATH, ".//a[contains(@href, '/')]")
+
         previous_count = len(users)
 
-        for user in user_elements:
-            username = user.text.strip()
-            if username and username not in users:
-                users.add(username)
+        for link in links:
+            href = link.get_attribute("href")
+            if href:
+                try:
+                    username = href.split("/")[-2]  # extract 'username' from .../username/
+                    if username and username not in users:
+                        users.add(username)
+                except IndexError:
+                    continue  # safety catch
 
+        # Scroll to bottom
         driver.execute_script("arguments[0].scrollTop = arguments[0].scrollHeight", scrollable_div)
-        time.sleep(2)
+        time.sleep(1.5)
 
+        # Break when no new users loaded
         new_height = driver.execute_script("return arguments[0].scrollHeight", scrollable_div)
         if new_height == last_height and len(users) == previous_count:
             break

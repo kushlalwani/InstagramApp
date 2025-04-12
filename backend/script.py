@@ -6,6 +6,13 @@ from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.options import Options
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
+INSTA_USERNAME = os.getenv("IG_USERNAME")
+INSTA_PASSWORD = os.getenv("IG_PASSWORD")
 
 # Configure Chrome
 options = Options()
@@ -16,6 +23,8 @@ options.add_argument("--no-sandbox")
 options.add_argument("--disable-dev-shm-usage")
 
 driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+
+
 
 def login_to_instagram(username, password):
     driver.get("https://www.instagram.com/accounts/login/")
@@ -96,7 +105,7 @@ def scrape_usernames():
 
     return users
 
-def get_following_and_follower(user, passw):
+def get_following_and_follower(user=INSTA_USERNAME, passw=INSTA_PASSWORD):
     login_to_instagram(user, passw)
     driver.get(f"https://www.instagram.com/{user}/")
     time.sleep(2)

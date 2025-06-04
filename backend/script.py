@@ -11,8 +11,8 @@ import os
 
 load_dotenv()
 
-INSTA_USERNAME = os.getenv("IG_USERNAME")
-INSTA_PASSWORD = os.getenv("IG_PASSWORD")
+USERNAME = os.getenv("IG_USERNAME")
+PASSWORD = os.getenv("IG_PASSWORD")
 
 # Configure Chrome
 options = Options()
@@ -105,7 +105,7 @@ def scrape_usernames():
 
     return users
 
-def get_following_and_follower(user=INSTA_USERNAME, passw=INSTA_PASSWORD):
+def get_following_and_follower(user=USERNAME, passw=PASSWORD):
     login_to_instagram(user, passw)
     driver.get(f"https://www.instagram.com/{user}/")
     time.sleep(2)

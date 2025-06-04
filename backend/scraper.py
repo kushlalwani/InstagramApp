@@ -1,6 +1,6 @@
 from app import app, db
 from models import Follower
-from script import get_following_and_follower  # your function
+from script import get_following_and_follower 
 from datetime import datetime
 from dotenv import load_dotenv
 import os

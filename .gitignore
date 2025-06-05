@@ -9,8 +9,8 @@ __pycache__/
 .env
 userpass.py
 
-# VS Code settings (optional)
+# VS Code settings
 .vscode/
-
+*.code-workspace
 instagram.db
 

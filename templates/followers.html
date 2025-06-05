@@ -1,0 +1,7 @@
+<h1>{{ title if title else "Followers" }}</h1>
+<ul>
+  {% for user in followers %}
+    <li>{{ user if user is string else user.username }}</li>
+  {% endfor %}
+</ul>
+<a href="/">Back</a>

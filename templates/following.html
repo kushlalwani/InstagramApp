@@ -1,0 +1,7 @@
+<h1>{{ title if title else "Following" }}</h1>
+<ul>
+  {% for user in following %}
+    <li>{{ user if user is string else user.username }}</li>
+  {% endfor %}
+</ul>
+<a href="/">Back</a>

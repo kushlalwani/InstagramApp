@@ -1,5 +1,5 @@
 from app import app, db
-from models import Follower
+from models import Follower, Following
 from script import get_following_and_follower 
 from datetime import datetime
 from dotenv import load_dotenv
@@ -17,6 +17,9 @@ with app.app_context():
     for username in followers_set:
         if not Follower.query.filter_by(username=username).first():
             db.session.add(Follower(username=username, followed_at=datetime.now()))
+    for username in following_set:
+        if not Following.query.filter_by(username=username).first():
+            db.session.add(Following(username=username, followed_at=datetime.now()))
     db.session.commit()
 
 print("✅ Saved followers to DB.")

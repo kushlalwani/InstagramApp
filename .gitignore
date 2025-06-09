@@ -12,7 +12,7 @@ utils.py
 
 
 #File used to debug the script
-scraper.py 
+test_scraper.py 
 
 
 # VS Code settings

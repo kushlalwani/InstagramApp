@@ -113,7 +113,7 @@ def login():
             for user in followers_set:
                 db.session.add(Follower(username=user, followed_at=datetime.now()))
             for user in following_set:
-                db.session.add(Following(username=user, follower_at=datetime.now()))
+                db.session.add(Following(username=user, followed_at=datetime.now()))
             db.session.commit()
 
         return redirect(url_for("index"))

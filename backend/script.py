@@ -89,7 +89,7 @@ def scrape_usernames(driver):
 
     return users
 
-def get_following_and_follower(username=USERNAME, password=PASSWORD):
+def get_following_and_follower(username, password):
     from selenium import webdriver
     from selenium.webdriver.chrome.service import Service
     from selenium.webdriver.chrome.options import Options

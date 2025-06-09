@@ -1,9 +1,12 @@
-from app import app, db
-from models import Follower, Following
-from script import get_following_and_follower 
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
+from backend.app import app, db
+from backend.models import Follower, Following
+from backend.script import get_following_and_follower 
 from datetime import datetime
 from dotenv import load_dotenv
-import os
 
 # Load .env variables
 load_dotenv()

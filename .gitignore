@@ -8,6 +8,7 @@ __pycache__/
 # Ignore environment variables and secrets
 .env
 userpass.py
+.flaskenv
 
 # VS Code settings
 .vscode/

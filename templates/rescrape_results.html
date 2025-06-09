@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Rescrape Results</title>
+</head>
+<body>
+    <h1>🔄 Rescrape Results</h1>
+
+    <h2>🚫 New Unfollowers</h2>
+    {% if new_unfollowers %}
+        <ul>
+            {% for user in new_unfollowers %}
+                <li>{{ user }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No new unfollowers detected.</p>
+    {% endif %}
+
+    <a href="/">← Back to Dashboard</a>
+</body>
+</html>

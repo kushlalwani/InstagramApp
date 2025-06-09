@@ -104,7 +104,7 @@ def get_following_and_follower(username=USERNAME, password=PASSWORD):
     options = Options()
     options.add_argument("--disable-gpu")
     options.add_argument("--window-size=1920,1080")
-    # options.add_argument("--headless=new")
+    options.add_argument("--headless=new")
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
 

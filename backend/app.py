@@ -116,7 +116,12 @@ def login():
         is_first_run = Follower.query.count() == 0 and Following.query.count() == 0
 
         if is_first_run:
-            following_set, followers_set = get_following_and_follower()
+            try:
+                following_set, followers_set = get_following_and_follower()
+            except Exception as e:
+                print("❌ Scraping failed:", e)
+                return "Login failed. Check your network or try again later.", 500
+
 
             for user in followers_set:
                 db.session.add(Follower(username=user, followed_at=datetime.now()))

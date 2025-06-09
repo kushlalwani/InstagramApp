@@ -24,8 +24,8 @@ InstaApp/
 ├── backend/
 │   ├── app.py             # Flask app and routes
 │   ├── models.py          # SQLAlchemy models
-│   ├── scraper.py         # Data scraping logic
 │   ├── script.py          # Selenium scraping utilities
+|   ├── __init__.py        # Creates the database tables
 ├── templates/             # HTML templates for Flask
 │   ├── index.html
 │   ├── followers.html

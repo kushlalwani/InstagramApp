@@ -62,8 +62,14 @@ def rescrape():
         old_followers = {f.username for f in Follower.query.all()}
         old_following = {f.username for f in Following.query.all()}
 
+        
+        load_dotenv()
+
+        USERNAME = os.getenv("IG_USERNAME", "").strip("'\"")
+        PASSWORD = os.getenv("IG_PASSWORD", "").strip("'\"")
+
         # Get new data
-        new_following, new_followers = get_following_and_follower()
+        new_following, new_followers = get_following_and_follower(USERNAME, PASSWORD)
 
         # Clear existing DB entries
         Follower.query.delete()
@@ -115,9 +121,15 @@ def login():
         # Check if it's the first run (tables are empty)
         is_first_run = Follower.query.count() == 0 and Following.query.count() == 0
 
+        
+        load_dotenv()
+
+        USERNAME = os.getenv("IG_USERNAME", "").strip("'\"")
+        PASSWORD = os.getenv("IG_PASSWORD", "").strip("'\"")
+
         if is_first_run:
             try:
-                following_set, followers_set = get_following_and_follower()
+                following_set, followers_set = get_following_and_follower(USERNAME, PASSWORD)
             except Exception as e:
                 print("❌ Scraping failed:", e)
                 return "Login failed. Check your network or try again later.", 500

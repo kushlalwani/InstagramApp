@@ -2,13 +2,7 @@ import time
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from dotenv import load_dotenv
-import os
 
-load_dotenv()
-
-USERNAME = os.getenv("IG_USERNAME", "").strip("'\"")
-PASSWORD = os.getenv("IG_PASSWORD", "").strip("'\"")
 
 def login_to_instagram(username, password, driver):
     driver.get("https://www.instagram.com/accounts/login/")

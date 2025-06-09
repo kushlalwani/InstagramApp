@@ -11,12 +11,12 @@ import os
 
 load_dotenv()
 
-USERNAME = os.getenv("IG_USERNAME")
-PASSWORD = os.getenv("IG_PASSWORD")
+USERNAME = os.getenv("IG_USERNAME", "").strip("'\"")
+PASSWORD = os.getenv("IG_PASSWORD", "").strip("'\"")
 
 # Configure Chrome
 options = Options()
-options.add_argument("--headless=new")  # Use new headless mode for better stability
+#options.add_argument("--headless=new")  # Use new headless mode for better stability
 options.add_argument("--disable-gpu")
 options.add_argument("--window-size=1920,1080")
 options.add_argument("--no-sandbox")

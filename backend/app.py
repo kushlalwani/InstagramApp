@@ -57,33 +57,37 @@ def dont_follow_back():
 
 @app.route("/rescrape", methods=["POST"])
 def rescrape():
-    # Get old data from DB
-    old_followers = {f.username for f in Follower.query.all()}
-    old_following = {f.username for f in Following.query.all()}
+    try:
+        # Get old data from DB
+        old_followers = {f.username for f in Follower.query.all()}
+        old_following = {f.username for f in Following.query.all()}
 
-    # Get new data
-    new_following, new_followers = get_following_and_follower()
+        # Get new data
+        new_following, new_followers = get_following_and_follower()
 
-    # Clear existing DB entries
-    Follower.query.delete()
-    Following.query.delete()
-    db.session.commit()
+        # Clear existing DB entries
+        Follower.query.delete()
+        Following.query.delete()
+        db.session.commit()
 
-    # Save new data
-    for username in new_followers:
-        db.session.add(Follower(username=username, followed_at=datetime.now()))
-    for username in new_following:
-        db.session.add(Following(username=username, followed_at=datetime.now()))
-    db.session.commit()
+        # Save new data
+        for username in new_followers:
+            db.session.add(Follower(username=username, followed_at=datetime.now()))
+        for username in new_following:
+            db.session.add(Following(username=username, followed_at=datetime.now()))
+        db.session.commit()
 
-    # Compare old vs new
-    new_unfollowers = sorted(old_followers - new_followers)
+        # Compare old vs new
+        new_unfollowers = sorted(old_followers - new_followers)
 
 
-    return render_template(
-        "rescrape_results.html",
-        new_unfollowers=new_unfollowers,
-    )
+        return render_template(
+            "rescrape_results.html",
+            new_unfollowers=new_unfollowers,
+        )
+    except Exception as e:
+        print("❌ Scraping failed:", e)
+        return "Rescrape failed. Check your network or try again later.", 500
 
 ENV_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '.env'))
 
@@ -109,7 +113,7 @@ def login():
             for user in followers_set:
                 db.session.add(Follower(username=user, followed_at=datetime.now()))
             for user in following_set:
-                db.session.add(Following(username=user, following_at=datetime.now()))
+                db.session.add(Following(username=user, follower_at=datetime.now()))
             db.session.commit()
 
         return redirect(url_for("index"))

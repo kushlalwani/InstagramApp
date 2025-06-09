@@ -10,7 +10,6 @@ load_dotenv()
 USERNAME = os.getenv("IG_USERNAME", "").strip("'\"")
 PASSWORD = os.getenv("IG_PASSWORD", "").strip("'\"")
 
-
 def login_to_instagram(username, password, driver):
     driver.get("https://www.instagram.com/accounts/login/")
 
@@ -96,7 +95,7 @@ def scrape_usernames(driver):
 
     return users
 
-def get_following_and_follower(user=USERNAME, passw=PASSWORD):
+def get_following_and_follower(username=USERNAME, password=PASSWORD):
     from selenium import webdriver
     from selenium.webdriver.chrome.service import Service
     from selenium.webdriver.chrome.options import Options
@@ -111,10 +110,11 @@ def get_following_and_follower(user=USERNAME, passw=PASSWORD):
 
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
 
+    
     try:
-        login_to_instagram(user, passw, driver)
+        login_to_instagram(username, password, driver)
 
-        driver.get(f"https://www.instagram.com/{user}/following/")
+        driver.get(f"https://www.instagram.com/{username}/following/")
         time.sleep(2)
 
         # Following
@@ -126,7 +126,7 @@ def get_following_and_follower(user=USERNAME, passw=PASSWORD):
         following = scrape_usernames(driver)
 
         # Back to profile, then followers
-        driver.get(f"https://www.instagram.com/{user}/")
+        driver.get(f"https://www.instagram.com/{username}/")
         time.sleep(1)
         followers_btn = WebDriverWait(driver, 10).until(
             EC.element_to_be_clickable((By.XPATH, "//a[contains(@href,'/followers')]"))

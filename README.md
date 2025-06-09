@@ -1,6 +1,6 @@
-# 📸 InstaApp – Instagram Follower Tracker
+# 📸 InstagramApp – Instagram Follower Tracker
 
-InstaApp is a web-based tool to track your Instagram followers and following using Selenium for scraping, SQLAlchemy for data storage, and Flask for visualization.
+InstagramApp is a web-based tool to track your Instagram followers and following using Selenium for scraping, SQLAlchemy for data storage, and Flask for visualization.
 
 ---
 
@@ -11,6 +11,7 @@ InstaApp is a web-based tool to track your Instagram followers and following usi
 - 🔄 Identifies:
   - People who don’t follow you back
   - People you don’t follow back  
+  - New users who have unfollowed you
 - 📊 View all data in a simple Flask web app  
 - 🧠 Stores everything in an SQLite database  
 
@@ -29,8 +30,14 @@ InstaApp/
 │   ├── index.html
 │   ├── followers.html
 │   ├── following.html
+|   ├── login.html
+|   ├── rescrape_results.html
+|   ├── scraping.html
+├── static/
+|   ├──style.css
 ├── instagram.db           # SQLite database (created after running)
 ├── .env                   # IG credentials (not committed)
+├── .flaskenv
 ├── .gitignore
 ├── requirements.txt
 └── README.md
@@ -43,8 +50,8 @@ InstaApp/
 ### 1. Clone the repo
 
 ```bash
-git clone https://github.com/yourusername/InstaApp.git
-cd InstaApp
+git clone https://github.com/kushlalwani/InstagramApp.git
+cd InstagramApp
 ```
 
 ### 2. Create and activate a virtual environment
@@ -62,39 +69,33 @@ source venv/bin/activate  # macOS/Linux
 pip install -r requirements.txt
 ```
 
-### 4. Create a `.env` file in the root
-
-```
-IG_USERNAME=your_instagram_username
-IG_PASSWORD=your_instagram_password
-```
-
+### 4. Run the App
 ---
 
-## ▶️ Run the App
-
-First, run the scraper:
+First, type this into the terminal:
 
 ```bash
-python backend/scraper.py
-```
-
-Then, start the Flask web app:
-
-```bash
-flask --app backend.app --debug run
+flask run
 ```
 
 Visit [http://localhost:5000](http://localhost:5000) to explore your follower data.
 
 ---
 
+### 5. Log In to Instagram
+---
+
+Once the webpage is opened, click on "Set Instagram Credentials" button, then enter your Instagram username and password.
+
+Don't worry, your credentials are only locally saved on your device. 
+
+Wait for the page to load, then you will be able to see all your Instagram information
+
 ## ✅ To-Do
 
-- [ ] Add daily snapshot tracking
-- [ ] Schedule scraping (e.g., APScheduler or cron)
-- [ ] Add user authentication
-- [ ] Deploy online with Render or Fly.io
+- [ ] Make webpage look more visually appealing by adding Instagram-like designs and potentially user's profile pictures
+- [ ] Add feature to unfollow and remove users as followers directly from the app
+- [ ] Continue to update the Selenium script as Instagram changes
 
 ---
 
@@ -107,3 +108,4 @@ Visit [http://localhost:5000](http://localhost:5000) to explore your follower da
 - WebDriver Manager
 - SQLite
 - Dotenv
+- HTML

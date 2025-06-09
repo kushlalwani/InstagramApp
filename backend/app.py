@@ -55,7 +55,7 @@ def dont_follow_back():
     
     return render_template('followers.html', followers=dont_follow_back, title='Dont Follow Back')
 
-@app.route("/rescrape", methods=["POST"])
+@app.route("/rescrape")
 def rescrape():
     try:
         # Get old data from DB
@@ -89,6 +89,10 @@ def rescrape():
         print("❌ Scraping failed:", e)
         return "Rescrape failed. Check your network or try again later.", 500
 
+@app.route("/start-rescrape", methods=["POST"])
+def start_rescrape():
+    return render_template("scraping.html")
+
 ENV_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '.env'))
 
 @app.route("/login", methods=["GET", "POST"])
@@ -104,6 +108,10 @@ def login():
         # Load them into the environment for this session
         load_dotenv(ENV_PATH)
 
+        Follower.query.delete()
+        Following.query.delete()
+        db.session.commit()
+        
         # Check if it's the first run (tables are empty)
         is_first_run = Follower.query.count() == 0 and Following.query.count() == 0
 

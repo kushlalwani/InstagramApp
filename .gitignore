@@ -9,6 +9,10 @@ __pycache__/
 .env
 userpass.py
 
+#File used to debug the script
+scraper.py 
+
+
 # VS Code settings
 .vscode/
 *.code-workspace
